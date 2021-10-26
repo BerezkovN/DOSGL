@@ -1,0 +1,21 @@
+Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
+main.cpp:
+Error dosgl.h 4: Unable to open include file 'dosgraphics.h'
+Warning dglm.h 27: Functions containing some if statements are not expanded inline in function vec3::operator [](int)
+Warning dglm.h 73: Functions containing some if statements are not expanded inline in function vec4::operator [](int)
+Warning dglm.h 80: Functions containing for are not expanded inline
+Warning dglm.h 88: Functions containing for are not expanded inline
+Warning shader.h 41: Functions containing for are not expanded inline
+Warning shader.h 51: Functions containing for are not expanded inline
+Warning dosgl.h 179: Parameter 'mode' is never used in function dglDrawArrays(unsigned int,unsigned int,unsigned int)
+Error dosgl.h 209: Function 'set_mode' should have a prototype in function dglDrawElements(unsigned int,unsigned int)
+Error dosgl.h 209: Undefined symbol 'VGA_256_COLOR_MODE' in function dglDrawElements(unsigned int,unsigned int)
+Error dosgl.h 211: Undefined symbol 'SCREEN_HEIGHT' in function dglDrawElements(unsigned int,unsigned int)
+Error dosgl.h 212: Undefined symbol 'SCREEN_WIDTH' in function dglDrawElements(unsigned int,unsigned int)
+Error dosgl.h 213: Function 'SETPIX' should have a prototype in function dglDrawElements(unsigned int,unsigned int)
+Warning dosgl.h 217: Parameter 'mode' is never used in function dglDrawElements(unsigned int,unsigned int)
+Error main.cpp 41: Undefined symbol 'SCR_WIDTH' in function main()
+Error main.cpp 41: Undefined symbol 'SCR_HEIGHT' in function main()
+*** 8 errors in Compile ***
+
+	Available memory 3712064
