@@ -186,8 +186,6 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 		return;
 	}
 
-	//clear_vga();
-
 	VAO vao = vertexArrays[currentVertexArray];
 
 	for (int ind = 0; ind < count; ind++)
@@ -212,8 +210,13 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 	}
 }
 
+void dglSwapBuffers() {
+	swap_vgabuffer();
+}
+
 void dglInit() {
 	set_mode(VGA_256_COLOR_MODE);
+	init_vgabuffer();
 }
 
 void dglTerminate() {

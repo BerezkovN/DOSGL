@@ -34,15 +34,28 @@ int main() {
 
     dglVertexAttribPointer(0, 0, 5 * sizeof(float), (void*)(0));
 
-    int count = 0;
-
     char kc = 0;
-    while (count++ < 5000) {
+
+    int rotation = 0;
+    //GAME LOOP
+    while (kc != 0x1b) {
+        if (kbhit()) {
+            kc = getch();
+            
+            switch (kc) {
+            case 'w':
+                rotation += 10;
+                break;
+            case 's':
+                rotation -= 10;
+                break;
+            }
+        }
 
         mat4 mod = mat4(1.0f); // make sure to initialize matrix to identity matrix first
         mat4 v = mat4(1.0f);
         mat4 proj = mat4(1.0f);
-        mod = rotate(mod, radians(count), vec3(1.0f, 0.0f, 0.0f));
+        mod = rotate(mod, radians(rotation), vec3(1.0f, 0.0f, 0.0f));
         v = translate(v, vec3(0.0f, 0.0f, -3.0f));
         proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
         //printdglm(proj);
@@ -56,9 +69,10 @@ int main() {
         dglUniformMatrix4fv(projLoc, &proj[0][0]);
 
         dglDrawElements(DGL_TRIANGLES, 6);
+
+        dglSwapBuffers();
         
     }
-    kc = getch();
 
     dglTerminate();
 
