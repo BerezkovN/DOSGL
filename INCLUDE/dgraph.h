@@ -133,7 +133,7 @@ void page_flip(WORD* page1, WORD* page2)
     while (!(inp(INPUT_STATUS) & VRETRACE));
 }
 
-void copy2page(byte far* s, WORD page, int h)
+void copy2page(byte* s, WORD page, int h)
 {
     int x, y;
     byte c;

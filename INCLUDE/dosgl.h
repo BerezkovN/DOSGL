@@ -1,9 +1,9 @@
 #pragma once
-#include<iostream.h>
-#include<stdlib.h>
+#include <iostream.h>
+#include <stdlib.h>
 
-#include"dgraph.h"
-#include"shader.h"
+#include "vga.h"
+#include "shader.h"
 
 #define DGL_ARRAY_BUFFER 0x01
 #define DGL_ELEMENT_ARRAY_BUFFER 0x02
@@ -204,23 +204,23 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 
 		vec3 windows = vec3(WIDTH / 2 * ndc.x + (CORNERX + WIDTH / 2), HEIGHT / 2 * ndc.y + (CORNERY + HEIGHT / 2), 0);
 
-		SETPIX((int)windows.x, (int)windows.y, 15);
+		setpix(!vga_current_page, (int)windows.x, (int)windows.y, BLACK);
 
 		//cout << "Window:\n" << windows.x << " " << windows.y << " " << windows.z << endl;
 	}
 }
 
 void dglSwapBuffers() {
-	swap_vgabuffer();
+	swap_vga();
 }
 
 void dglInit() {
-	set_mode(VGA_256_COLOR_MODE);
-	init_vgabuffer();
+	set_mode_y();
+	vga_init();
 }
 
 void dglTerminate() {
-	set_mode(TEXT_MODE);
+	set_text_mode();
 }
 
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {

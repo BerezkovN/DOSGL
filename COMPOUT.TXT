@@ -1,0 +1,16 @@
+Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
+main.cpp:
+Warning INCLUDE\dglm.h 27: Functions containing some if statements are not expanded inline in function vec3::operator [](int)
+Warning INCLUDE\dglm.h 73: Functions containing some if statements are not expanded inline in function vec4::operator [](int)
+Warning INCLUDE\dglm.h 80: Functions containing for are not expanded inline
+Warning INCLUDE\dglm.h 88: Functions containing for are not expanded inline
+Warning INCLUDE\shader.h 41: Functions containing for are not expanded inline
+Warning INCLUDE\shader.h 51: Functions containing for are not expanded inline
+Warning INCLUDE\dosgl.h 180: Parameter 'mode' is never used in function dglDrawArrays(unsigned int,unsigned int,unsigned int)
+Warning INCLUDE\dosgl.h 211: Parameter 'mode' is never used in function dglDrawElements(unsigned int,unsigned int)
+Warning INCLUDE\dglm.h 73: Function should return a value in function vec4::operator [](int)
+Warning INCLUDE\dglm.h 27: Function should return a value in function vec3::operator [](int)
+vga.cpp:
+Turbo Link  Version 5.0 Copyright (c) 1992 Borland International
+
+	Available memory 3441832
