@@ -206,6 +206,8 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 
 #if defined(INT13H)
 		double_buffer[(unsigned int)windows.y * WIDTH + (unsigned int)windows.x] = 15;
+#else
+		setpix(active_page, (int)windows.x, (int)windows.y, 15);
 #endif
 
 		//cout << "Window:\n" << windows.x << " " << windows.y << " " << windows.z << endl;
@@ -216,6 +218,11 @@ void dglSwapBuffers() {
 #if defined(INT13H)
 	show_buffer(double_buffer);
 	memset(double_buffer, 0, SCREEN_SIZE);
+#else
+	page_flip(&visual_page, &active_page);
+	outpw(SC_INDEX, ALL_PLANES);
+	memset(&VGA[active_page], 0, SCREEN_SIZE / 4);
+	
 #endif
 }
 
@@ -227,8 +234,12 @@ void dglInit() {
 		exit(1);
 	}
 	set_mode(VGA_256_COLOR_MODE);
-#endif
+#else
+	set_unchained_mode();
 
+	visual_page = 0;
+	active_page = SCREEN_SIZE / 4;
+#endif
 }
 
 void dglTerminate() {

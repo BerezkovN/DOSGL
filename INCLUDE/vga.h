@@ -1,5 +1,9 @@
 #include <dos.h>
 #include <mem.h>
+#include <conio.h>
+#include <stdio.h>
+#include <iostream.h>
+#include <fstream.h>
 
 #define VIDEO_INT           0x10      /* the BIOS video interrupt. */
 #define SET_MODE            0x00      /* BIOS func to set the video mode. */
@@ -37,14 +41,17 @@
 #define SCREEN_SIZE         (word)(SCREEN_WIDTH*SCREEN_HEIGHT)
 #define NUM_COLORS          256       /* number of colors in mode 0x13 */
 
-//#define VERTICAL_RETRACE              /* comment out this line for more
+#define VERTICAL_RETRACE              /* comment out this line for more
                                         //accurate timing */
 typedef unsigned char  byte;
-typedef unsigned short word;
+typedef unsigned int word;
 typedef unsigned long  dword;
 
 byte* VGA = (byte*)0xA0000000L;        /* this points to video memory. */
 byte* double_buffer;
+
+word visual_page;
+word active_page;
 
 /**************************************************************************
 *  set_mode                                                              *
@@ -147,10 +154,10 @@ void set_palette(byte* palette)
 *    Plots a pixel in unchained mode                                     *
 **************************************************************************/
 
-void plot_pixel(int x, int y, byte color)
+void setpix(word page, int x, int y, byte c)
 {
-    outp(SC_INDEX, MAP_MASK);          /* select plane */
-    outp(SC_DATA, 1 << (x & 3));
+    outportb(SC_INDEX, MAP_MASK);
+    outportb(SC_DATA, 1 << (x & 3));
 
-    VGA[(y << 6) + (y << 4) + (x >> 2)] = color;
+    VGA[page + (((word)SCREEN_WIDTH *y) >> 2) + (x >> 2)] = c; /* x/4 is equal to x>>2 */
 }

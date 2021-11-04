@@ -1,8 +1,7 @@
 #include <iostream.h>
 #include <time.h>
-#include <conio.h>
 
-#define INT13H
+//#define INT13H
 #include "dosgl.h"
 
 int main() {
@@ -41,10 +40,9 @@ int main() {
 
     int rotation = 0;
 
-
     //GAME LOOP
     while (kc != 0x1b) {
-
+       
         if (kbhit()) {
             kc = getch();
             
@@ -73,8 +71,7 @@ int main() {
         dglUniformMatrix4fv(modLoc, &mod[0][0]);
         dglUniformMatrix4fv(vLoc, &v[0][0]);
         dglUniformMatrix4fv(projLoc, &proj[0][0]);
-
-
+        
 
         dglDrawElements(DGL_TRIANGLES, 6);
         dglSwapBuffers();

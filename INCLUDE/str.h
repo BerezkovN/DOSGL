@@ -1,4 +1,3 @@
-#include <iostream.h>
 #include <string.h>
 
 class String {
@@ -13,7 +12,6 @@ public:
    ~String() {delete char_ptr;}; // inline destructor
    int Get_len (void);
    String operator+ (String& Arg);
-   void Show (void);
 };
 
 String::String (char *text)
@@ -48,9 +46,4 @@ String String::operator+ (String& Arg)
 int String::Get_len(void)
 {
    return (length);
-};
-
-void String::Show(void)
-{
-   cout << char_ptr << "\n";
 };
