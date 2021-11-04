@@ -204,23 +204,35 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 
 		vec3 windows = vec3(WIDTH / 2 * ndc.x + (CORNERX + WIDTH / 2), HEIGHT / 2 * ndc.y + (CORNERY + HEIGHT / 2), 0);
 
-		setpix(!vga_current_page, (int)windows.x, (int)windows.y, BLACK);
+#if defined(INT13H)
+		double_buffer[(unsigned int)windows.y * WIDTH + (unsigned int)windows.x] = 15;
+#endif
 
 		//cout << "Window:\n" << windows.x << " " << windows.y << " " << windows.z << endl;
 	}
 }
 
 void dglSwapBuffers() {
-	swap_vga();
+#if defined(INT13H)
+	show_buffer(double_buffer);
+	memset(double_buffer, 0, SCREEN_SIZE);
+#endif
 }
 
 void dglInit() {
-	set_mode_y();
-	vga_init();
+#if defined(INT13H)
+	if ((double_buffer = (byte*)malloc(SCREEN_SIZE)) == NULL)
+	{
+		cout << "Not enough memory for double buffer.\n";
+		exit(1);
+	}
+	set_mode(VGA_256_COLOR_MODE);
+#endif
+
 }
 
 void dglTerminate() {
-	set_text_mode();
+	set_mode(TEXT_MODE);
 }
 
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {

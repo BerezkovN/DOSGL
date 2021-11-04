@@ -2,6 +2,7 @@
 #include <time.h>
 #include <conio.h>
 
+#define INT13H
 #include "dosgl.h"
 
 int main() {
@@ -19,7 +20,7 @@ int main() {
         1, 2, 3  // second triangle
     };
 
-    dglViewPort(0, 0, vga_width, vga_height);
+    dglViewPort(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     unsigned int vao, vbo, ebo;
     dglGenVertexArrays(1, &vao);
@@ -39,9 +40,11 @@ int main() {
     char kc = 0;
 
     int rotation = 0;
+
+
     //GAME LOOP
     while (kc != 0x1b) {
-        //clock_t start = clock();
+
         if (kbhit()) {
             kc = getch();
             
@@ -60,7 +63,7 @@ int main() {
         mat4 proj = mat4(1.0f);
         mod = rotate(mod, radians(rotation), vec3(1.0f, 0.0f, 0.0f));
         v = translate(v, vec3(0.0f, 0.0f, -3.0f));
-        proj = perspective(radians(45.0f), (float)vga_width / (float)vga_height, 0.1f, 100.0f);
+        proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
         //printdglm(proj);
 
         unsigned int modLoc = dglGetUniformLocation("model");
@@ -71,14 +74,10 @@ int main() {
         dglUniformMatrix4fv(vLoc, &v[0][0]);
         dglUniformMatrix4fv(projLoc, &proj[0][0]);
 
+
+
         dglDrawElements(DGL_TRIANGLES, 6);
-
-        getch();
         dglSwapBuffers();
-        //getch();
-
-        //cout << clock() - start << endl;
-        //getch();
     }
 
     dglTerminate();
