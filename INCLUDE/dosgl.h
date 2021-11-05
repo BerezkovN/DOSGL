@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 #include "vga.h"
 #include "shader.h"

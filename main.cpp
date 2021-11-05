@@ -1,5 +1,6 @@
 #include <iostream.h>
-#include <time.h>
+#include <stdio.h>
+#include <conio.h>
 
 //#define INT13H
 #include "dosgl.h"
@@ -39,6 +40,7 @@ int main() {
     char kc = 0;
 
     int rotation = 0;
+    float height = 0;
 
     //GAME LOOP
     while (kc != 0x1b) {
@@ -53,6 +55,12 @@ int main() {
             case 's':
                 rotation -= 10;
                 break;
+            case 'e':
+                height += 0.01f;
+                break;
+            case 'q':
+                height -= 0.01f;
+                break;
             }
         }
 
@@ -60,7 +68,7 @@ int main() {
         mat4 v = mat4(1.0f);
         mat4 proj = mat4(1.0f);
         mod = rotate(mod, radians(rotation), vec3(1.0f, 0.0f, 0.0f));
-        v = translate(v, vec3(0.0f, 0.0f, -3.0f));
+        v = translate(v, vec3(0.0f, height, -3.0f));
         proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
         //printdglm(proj);
 

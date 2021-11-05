@@ -14,36 +14,36 @@ public:
    String operator+ (String& Arg);
 };
 
-String::String (char *text)
+String::String(char* text)
 {
-   length = strlen(text);  // get length of text
-   char_ptr = new char[length + 1];
-   strcpy(char_ptr, text);
+	length = strlen(text);  // get length of text
+	char_ptr = new char[length + 1];
+	strcpy(char_ptr, text);
 };
 
-String::String (int size)
+String::String(int size)
 {
-   length = size;
-   char_ptr = new char[length+1];
-   *char_ptr = '\0';
+	length = size;
+	char_ptr = new char[length + 1];
+	*char_ptr = '\0';
 };
 
-String::String (String& Other_String)
+String::String(String& Other_String)
 {
-   length = Other_String.length;       // length of other string
-   char_ptr = new char [length + 1];   // allocate the memory
-   strcpy (char_ptr, Other_String.char_ptr); // copy the text
+	length = Other_String.length;       // length of other string
+	char_ptr = new char[length + 1];   // allocate the memory
+	strcpy(char_ptr, Other_String.char_ptr); // copy the text
 };
 
 String String::operator+ (String& Arg)
 {
-  String Temp( length + Arg.length);
-  strcpy(Temp.char_ptr, char_ptr);
-  strcat(Temp.char_ptr, Arg.char_ptr);
-  return Temp;
+	String Temp(length + Arg.length);
+	strcpy(Temp.char_ptr, char_ptr);
+	strcat(Temp.char_ptr, Arg.char_ptr);
+	return Temp;
 }
 
 int String::Get_len(void)
 {
-   return (length);
+	return (length);
 };
