@@ -1,6 +1,6 @@
 #include "shader.h"
 
-class myShader : public shader {
+class simpleShader : public shader {
 private:
 	//ATRIBUTES
 	//	location 0
@@ -15,7 +15,7 @@ private:
 	mat4 projection;
 
 public:
-	myShader() {
+	simpleShader() {
 		attributes = 1;
 
 		//Default values for attributes

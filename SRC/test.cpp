@@ -5,6 +5,7 @@
 //#define INT13H
 #include "dosgl.h"
 #include "dglm.h"
+#include "smplShdr.h"
 
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 200     
@@ -40,6 +41,9 @@ int main() {
     dglBufferData(DGL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices);
 
     dglVertexAttribPointer(0, 0, 5 * sizeof(float), (void*)(0));
+
+    simpleShader myShader;
+    dglUseProgram(myShader);
 
     char kc = 0;
 

@@ -3,8 +3,6 @@
 
 #include "vga.h"
 #include "shader.h"
-//TEMPORARY
-#include "myShader.h"
 #include "dosgl.h"
 
 unsigned int WIDTH;
@@ -42,7 +40,7 @@ unsigned int currentElementBuffer = 0;
 
 void** buffers = new void* [DGL_MAX_AMOUNT_OF_BUFFERS];
 
-shader* ourShader;
+shader* internalShader;
 
 void dglGenBuffers(unsigned int size, unsigned int* buffs) {
 	for (int ind = 0; ind < size; ind++)
@@ -136,11 +134,11 @@ void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int str
 //}
 
 int dglGetUniformLocation(String str) {
-	return ourShader->getUniformLocation(str);
+	return internalShader->getUniformLocation(str);
 }
 
 void dglUniformMatrix4fv(int location, const float* value) {
-	ourShader->setUniformMatrix4fv(location, value);
+	internalShader->setUniformMatrix4fv(location, value);
 }
 
 void dglDrawArrays(unsigned int mode, unsigned int first, unsigned int count) {
@@ -156,13 +154,13 @@ void dglDrawArrays(unsigned int mode, unsigned int first, unsigned int count) {
 	int length = count + first;
 	for (int ind = first; ind < length; ind++)
 	{
-		for (int attribInd = 0; attribInd < ourShader->attributes; attribInd++)
+		for (int attribInd = 0; attribInd < internalShader->attributes; attribInd++)
 		{
 			int currentPos = (int)vao.attribs[attribInd].pointer + vao.attribs[attribInd].stride * ind;
-			ourShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
+			internalShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
 		}
 
-		vec4 vert = ourShader->vert();
+		vec4 vert = internalShader->vert();
 
 		//std::cout << vert.x << " " << vert.y << " " << vert.z << " " << vert.w << std::endl;
 
@@ -185,13 +183,13 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 
 	for (int ind = 0; ind < count; ind++)
 	{
-		for (int attribInd = 0; attribInd < ourShader->attributes; attribInd++)
+		for (int attribInd = 0; attribInd < internalShader->attributes; attribInd++)
 		{
 			int currentPos = (int)vao.attribs[attribInd].pointer + vao.attribs[attribInd].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind];
-			ourShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
+			internalShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
 		}
 
-		vec4 vert = ourShader->vert();
+		vec4 vert = internalShader->vert();
 
 		vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
 
@@ -218,8 +216,6 @@ void dglSwapBuffers() {
 }
 
 void dglInit() {
-	ourShader = new myShader();
-
 #if defined(INT13H)
 	if ((double_buffer = (byte*)malloc(SCREEN_SIZE)) == NULL)
 	{
@@ -244,4 +240,8 @@ void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned in
 	CORNERY = y;
 	WIDTH = width;
 	HEIGHT = height;
+}
+
+void dglUseProgram(shader& someShader) {
+	internalShader = &someShader;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "str.h"
+#include "shader.h"
 
 #define DGL_ARRAY_BUFFER 0x01
 #define DGL_ELEMENT_ARRAY_BUFFER 0x02
@@ -29,3 +30,5 @@ void dglDrawElements(unsigned int mode, unsigned int count);
 void dglSwapBuffers();
 
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+
+void dglUseProgram(shader& someShader);

@@ -6,21 +6,13 @@ Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
 src\dosgl.cpp:
 Warning INCLUDE\dglm.h 40: Function should return a value in function vec3::operator [](int)
 Warning INCLUDE\dglm.h 80: Function should return a value in function vec4::operator [](int)
-Warning src\dosgl.cpp 175: Parameter 'mode' is never used in function dglDrawArrays(unsigned int,unsigned int,unsigned int)
-Warning src\dosgl.cpp 206: Parameter 'mode' is never used in function dglDrawElements(unsigned int,unsigned int)
+Warning src\dosgl.cpp 173: Parameter 'mode' is never used in function dglDrawArrays(unsigned int,unsigned int,unsigned int)
+Warning src\dosgl.cpp 204: Parameter 'mode' is never used in function dglDrawElements(unsigned int,unsigned int)
 src\vga.cpp:
 
-	Available memory 3484140
+	Available memory 3808520
 TLIB 3.02 Copyright (c) 1991 Borland International
-Warning: 'DOSGL' already in LIB, not changed!
 ///////////////////
 //COMPILING TEST.EXE
 ///////////////////
 /                 /
-Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
-src\test.cpp:
-Warning INCLUDE\dglm.h 40: Function should return a value in function vec3::operator [](int)
-Warning INCLUDE\dglm.h 80: Function should return a value in function vec4::operator [](int)
-Turbo Link  Version 5.0 Copyright (c) 1992 Borland International
-
-	Available memory 3807496
