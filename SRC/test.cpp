@@ -4,6 +4,10 @@
 
 //#define INT13H
 #include "dosgl.h"
+#include "dglm.h"
+
+#define SCREEN_WIDTH  320
+#define SCREEN_HEIGHT 200     
 
 int main() {
     dglInit();

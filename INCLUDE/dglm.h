@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __DGLM_H
+#define __DGLM_H
+
 #include "math.h"
 
 struct vec3 {
@@ -17,14 +19,7 @@ public:
 		this->z = z;
 	}
 
-	float& operator[](int ind) {
-		if (ind == 0)
-			return x;
-		if (ind == 1)
-			return y;
-		if (ind == 2)
-			return z;
-	}
+	float& operator[](int ind);
 
 	float length() {
 		return sqrt(x * x + y * y + z * z);
@@ -34,6 +29,15 @@ public:
 		return vec3(x / this->length(), y / this->length(), z / this->length());
 	}
 };
+
+float& vec3::operator[](int ind) {
+	if (ind == 0)
+		return x;
+	if (ind == 1)
+		return y;
+	if (ind == 2)
+		return z;
+}
 
 struct vec4 {
 public:
@@ -61,40 +65,25 @@ public:
 		return vec4(x * val, y * val, z * val, w * val);
 	}
 
-	float& operator[](int ind) {
-		if (ind == 0)
-			return x;
-		if (ind == 1)
-			return y;
-		if (ind == 2)
-			return z;
-		if (ind == 3)
-			return w;
-	}
+	float& operator[](int ind);
 };
+
+float& vec4::operator[](int ind) {
+	if (ind == 0)
+		return x;
+	if (ind == 1)
+		return y;
+	if (ind == 2)
+		return z;
+	if (ind == 3)
+		return w;
+}
 
 struct mat4 {
 public:
-	mat4()
-	{
-		for (int ind = 0; ind < 4; ind++)
-		{
-			matrix[ind] = vec4();
-		}
-	}
+	mat4();
 
-	mat4(float x) 
-	{
-		for (int ind = 0; ind < 4; ind++)
-		{
-			matrix[ind] = vec4();
-		}
-
-		matrix[0].x = x;
-		matrix[1].y = x;
-		matrix[2].z = x;
-		matrix[3].w = x;
-	}
+	mat4(float x);
 
 	//A(mat4) * B(vec4) = C(vec4) 
 	vec4 operator* (vec4 vec) {
@@ -134,6 +123,27 @@ public:
 private:
 	vec4 matrix[4];
 };
+
+mat4::mat4()
+{
+	for (int ind = 0; ind < 4; ind++)
+	{
+		matrix[ind] = vec4();
+	}
+}
+
+mat4::mat4(float x)
+{
+	for (int ind = 0; ind < 4; ind++)
+	{
+		matrix[ind] = vec4();
+	}
+
+	matrix[0].x = x;
+	matrix[1].y = x;
+	matrix[2].z = x;
+	matrix[3].w = x;
+}
 
 mat4 translate(mat4 matrix, vec3 vector) {
 	mat4 transform(1.0f);
@@ -209,3 +219,5 @@ mat4 perspective(float left, float right, float bottom, float top, float nearVal
 float radians(float degrees) {
 	return degrees * 0.01745329251f;
 }
+
+#endif

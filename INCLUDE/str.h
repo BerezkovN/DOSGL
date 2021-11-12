@@ -1,3 +1,6 @@
+#ifndef __STR_H
+#define __STR_H
+
 #include <string.h>
 
 class String {
@@ -47,3 +50,5 @@ int String::Get_len(void)
 {
 	return (length);
 };
+
+#endif
