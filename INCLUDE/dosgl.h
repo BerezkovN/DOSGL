@@ -116,6 +116,7 @@ void dglBindVertexArray(unsigned int vao) {
 	currentVertexArray = vao;
 }
 
+//We don't specify size in argument list, because we do it manually in shader.h
 void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int stride, void* pointer) {
 	if (currentVertexArray == 0)
 	{
@@ -198,8 +199,6 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 
 		vec4 vert = ourShader.vert();
 
-		//std::cout << vert.x << " " << vert.y << " " << vert.z << " " << vert.w << std::endl;
-
 		vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
 
 		vec3 windows = vec3(WIDTH / 2 * ndc.x + (CORNERX + WIDTH / 2), HEIGHT / 2 * ndc.y + (CORNERY + HEIGHT / 2), 0);
@@ -209,8 +208,6 @@ void dglDrawElements(unsigned int mode, unsigned int count) {
 #else
 		setpix(active_page, (int)windows.x, (int)windows.y, 15);
 #endif
-
-		//cout << "Window:\n" << windows.x << " " << windows.y << " " << windows.z << endl;
 	}
 }
 
