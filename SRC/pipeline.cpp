@@ -31,10 +31,38 @@ void pipeline::ProcessTriangle(vec4& v0, vec4& v1, vec4& v2) {
 }
 
 void pipeline::DrawTriangle(const triangle& trig) {
-	setpix(active_page, (int)trig.v0.x, (int)trig.v0.y, 15);
-	setpix(active_page, (int)trig.v1.x, (int)trig.v1.y, 15);
-	setpix(active_page, (int)trig.v2.x, (int)trig.v2.y, 15);
+    DrawLine(trig.v0, trig.v1);
+    DrawLine(trig.v1, trig.v2);
+    DrawLine(trig.v2, trig.v0);
+}
 
+void pipeline::DrawLine(vec3& v0, vec3& v1) {
+    float dx = v1.x - v0.x;
+    float dy = v1.y - v0.y;
+
+    float adx = abs(dx);
+    float ady = abs(dy);
+
+    float step;
+    if (adx >= ady)
+        step = adx;
+    else
+        step = ady;
+
+    dx /= step;
+    dy /= step;
+
+    float x = v0.x;
+    float y = v0.y;
+    int i = 1;
+
+    while (i <= step)
+    {
+        setpix(active_page, (int)x, (int)y, 15);
+        x += dx;
+        y += dy;
+        i++;
+    }
 }
 
 void pipeline::Draw(vec4* vertices, int count) {
