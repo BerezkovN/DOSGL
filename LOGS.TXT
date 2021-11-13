@@ -4,10 +4,10 @@
 /                 /
 Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
 src\dosgl.cpp:
-Warning src\dosgl.cpp 216: Parameter 'mode' is never used in function dglDrawElements(unsigned int,const unsigned int)
+Warning src\dosgl.cpp 217: Parameter 'mode' is never used in function dglDrawElements(unsigned int,const unsigned int)
 src\dglm.cpp:
 Warning src\dglm.cpp 12: Function should return a value in function vec3::operator [](int)
-Warning src\dglm.cpp 27: Function should return a value in function vec4::operator [](int)
+Warning src\dglm.cpp 29: Function should return a value in function vec4::operator [](int)
 src\vga.cpp:
 src\pipeline.cpp:
 

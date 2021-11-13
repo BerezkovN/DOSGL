@@ -5,7 +5,7 @@
 #include <iostream.h>
 
 void pipeline::AssembleTriangles(vec4* vertices, int count) {
-	for (int i = 0; i < count / 3; i++)
+	for (int i = 0; i < count; i += 3)
 	{
 		vec4& v0 = vertices[i];
 		vec4& v1 = vertices[i + 1];
@@ -34,11 +34,7 @@ void pipeline::DrawTriangle(const triangle& trig) {
 	setpix(active_page, (int)trig.v0.x, (int)trig.v0.y, 15);
 	setpix(active_page, (int)trig.v1.x, (int)trig.v1.y, 15);
 	setpix(active_page, (int)trig.v2.x, (int)trig.v2.y, 15);
-	
-	/*trig.v0.print();
-	trig.v1.print();
-	trig.v2.print();
-	getch();*/
+
 }
 
 void pipeline::Draw(vec4* vertices, int count) {

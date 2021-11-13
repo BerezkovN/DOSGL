@@ -1,5 +1,6 @@
 #include <iostream.h>
 #include <assert.h>
+#include <stdlib.h>
 #include <dos.h>
 
 #include "shader.h"
@@ -245,6 +246,7 @@ void dglInit() {
 
 void dglTerminate() {
 	set_mode(TEXT_MODE);
+	exit(1);
 }
 
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {

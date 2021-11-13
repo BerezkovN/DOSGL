@@ -12,7 +12,9 @@ float& vec3::operator[](int ind) {
 }
 
 void vec3::print() {
-	cout << "(" << x << ", " << y << ", " << z << ")   \n";
+	cout << "(";
+	cout << x;
+	cout << ", " << y << ", " << z << ")   \n";
 }
 
 float& vec4::operator[](int ind) {
