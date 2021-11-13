@@ -25,13 +25,13 @@ public:
 	unsigned int CORNERY;
 
 private:
-	void AssembleTriangles(vec4** vertices, int count);
+	void AssembleTriangles(vec4* vertices, int count);
 	void ProcessTriangle(vec4& v0, vec4& v1, vec4& v2);
 	void DrawTriangle(const triangle& triangle);
 
 	vec3 toScreenSpace(vec4& vert);
 public:
-	void Draw(vec4** vertices, int count);
+	void Draw(vec4* vertices, int count);
 };
 
 #endif 

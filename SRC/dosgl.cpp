@@ -182,7 +182,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 
 	VAO vao = vertexArrays[currentVertexArray];
 
-	vec4** vertices = new vec4*[count];
+	vec4* vertices = new vec4[count];
 
 	//VERTEX SPECIFICATION STAGE
 	for (int ind = 0; ind < count; ind++)
@@ -195,7 +195,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 
 		//So instead of copying vec4 to the vertices array, i just store their addresses
 		//Those vec4 are stored in the stack and we don't end function here so we should not be affraid to pass those addresses to a pipeline
-		vertices[ind] = &(internalShader->vert());
+		vertices[ind] = internalShader->vert();
 		
 
 		/*vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
