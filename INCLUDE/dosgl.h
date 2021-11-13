@@ -26,7 +26,7 @@ void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int str
 int dglGetUniformLocation(String str);
 void dglUniformMatrix4fv(int location, const float* value);
 
-void dglDrawElements(unsigned int mode, unsigned int count);
+void dglDrawElements(unsigned int mode, const unsigned int count);
 void dglSwapBuffers();
 
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height);

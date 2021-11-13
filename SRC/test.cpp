@@ -11,7 +11,7 @@
 #define SCREEN_HEIGHT 200     
 
 int main() {
-    dglInit();
+    //dglInit();
 
     float vertices[] = {
         // positions          // texture coords
@@ -71,6 +71,9 @@ int main() {
                 break;
             }
         }
+
+        //TODO:
+        //CHANGE INT TO SIZE_T IN FOR LOOPS
 
         mat4 mod = mat4(1.0f); // make sure to initialize matrix to identity matrix first
         mat4 v = mat4(1.0f);
