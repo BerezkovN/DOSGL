@@ -4,10 +4,6 @@
 #include <conio.h>
 #include <iostream.h>
 
-void printVec4(const vec4& vert) {
-	cout << "(" << vert.x << ", " << vert.y << ", " << vert.z << ")   \n";
-}
-
 void pipeline::AssembleTriangles(vec4* vertices, int count) {
 	for (int i = 0; i < count / 3; i++)
 	{
@@ -36,8 +32,8 @@ void pipeline::ProcessTriangle(vec4& v0, vec4& v1, vec4& v2) {
 
 void pipeline::DrawTriangle(const triangle& trig) {
 	setpix(active_page, (int)trig.v0.x, (int)trig.v0.y, 15);
-	setpix(active_page, (int)trig.v1.x, (int)trig.v1.y, 4);
-	setpix(active_page, (int)trig.v2.x, (int)trig.v2.y, 6);
+	setpix(active_page, (int)trig.v1.x, (int)trig.v1.y, 15);
+	setpix(active_page, (int)trig.v2.x, (int)trig.v2.y, 15);
 	
 	/*trig.v0.print();
 	trig.v1.print();

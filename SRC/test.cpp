@@ -91,11 +91,6 @@ int main() {
         dglUniformMatrix4fv(modLoc, &mod[0][0]);
         dglUniformMatrix4fv(vLoc, &v[0][0]);
         dglUniformMatrix4fv(projLoc, &proj[0][0]);
-        
-        setpix(active_page, 10, 10, 3);
-        setpix(active_page, 11, 10, 3);
-        setpix(active_page, 11, 11, 3);
-        setpix(active_page, 10, 11, 3);
 
         dglDrawElements(DGL_TRIANGLES, 6);
         dglSwapBuffers();

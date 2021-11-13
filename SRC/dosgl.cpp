@@ -212,7 +212,6 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 
 
 	internalPipeline.Draw(vertices, count);
-	cout << endl;
 
 }
 
