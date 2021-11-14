@@ -21,6 +21,27 @@ public:
 
 	float& operator[](int ind);
 
+	vec3 operator+ (vec3 vec) {
+		return vec3(x + vec.x, y + vec.y, z + vec.z);
+	}
+
+	vec3 operator- (vec3 vec) {
+		return vec3(x - vec.x, y - vec.y, z - vec.z);
+	}
+
+	//Dot product
+	float operator* (vec3 vec) {
+		return x * vec.x + y * vec.y + z * vec.z;
+	}
+
+	//Cross product
+	vec3 operator% (vec3 vec) {
+		return vec3(
+			y * vec.z - z * vec.y,
+			z * vec.x - x * vec.z,
+			x * vec.y - y * vec.x);
+	}
+
 	float length() {
 		return sqrt(x * x + y * y + z * z);
 	}

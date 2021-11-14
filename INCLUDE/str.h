@@ -11,7 +11,7 @@ public:
    String(char *text);           // constructor using existing string
    String(int size = 80);        // creates default empty string
    String(String& Other_String); // for assignment from another
-                                 // object of this class
+
    ~String() {delete char_ptr;}; // inline destructor
    int Get_len (void);
    String operator+ (String& Arg);

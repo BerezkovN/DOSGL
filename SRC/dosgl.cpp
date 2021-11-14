@@ -55,6 +55,7 @@ void dglBindBuffer(unsigned int mode, unsigned int buffer) {
 	else if (mode == DGL_ELEMENT_ARRAY_BUFFER) {
 		if (currentVertexArray == 0)
 		{
+			dglTerminate();
 			cout << "VAO is not bound\n";
 			return;
 		}
@@ -67,6 +68,7 @@ void dglBindBuffer(unsigned int mode, unsigned int buffer) {
 void dglBufferData(unsigned int mode, unsigned int size, void* data) {
 	if (mode == DGL_ARRAY_BUFFER) {
 		if (currentVertexBuffer == 0) {
+			dglTerminate();
 			cout << "No buffers are bound\n";
 			return;
 		}
@@ -81,6 +83,7 @@ void dglBufferData(unsigned int mode, unsigned int size, void* data) {
 	}
 	else if (mode == DGL_ELEMENT_ARRAY_BUFFER) {
 		if (currentElementBuffer == 0) {
+			dglTerminate();
 			cout << "No buffers are bound\n";
 			return;
 		}
@@ -111,6 +114,7 @@ void dglBindVertexArray(unsigned int vao) {
 void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int stride, void* pointer) {
 	if (currentVertexArray == 0)
 	{
+		dglTerminate();
 		cout << "VAO is not bound\n";
 		return;
 	}
@@ -177,6 +181,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 
 	if (currentVertexArray == 0)
 	{
+		dglTerminate();
 		cout << "VAO is not bound\n";
 		return;
 	}
@@ -213,7 +218,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 
 
 	internalPipeline.Draw(vertices, count);
-
+	delete vertices;
 }
 
 void dglSwapBuffers() {

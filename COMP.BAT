@@ -12,4 +12,4 @@ echo //COMPILING TEST.EXE >> LOGS.TXT
 echo /////////////////// >> LOGS.TXT
 echo /                 / >> LOGS.TXT
 
-tcc -IINCLUDE -ml SRC\test.cpp BIN\DOSGL.LIB
+tcc -IINCLUDE -ml SRC\meshtest.cpp BIN\DOSGL.LIB
