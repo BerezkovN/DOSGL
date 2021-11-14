@@ -93,7 +93,7 @@ int main() {
     float rotationY = 0;
     float rotationZ = 0;
 
-    float scaleF = 0.2f;
+    float scaleF = 1.0f;
 
     //GAME LOOP
     while (kc != 0x1b) {
@@ -142,7 +142,7 @@ int main() {
         model = rotate(model, radians(rotationY), vec3(0.0f, 1.0f, 0.0f));
         model = rotate(model, radians(rotationZ), vec3(0.0f, 0.0f, 1.0f));
 
-        //model = scale(model, vec3(scaleF, scaleF, scaleF));
+        model = scale(model, vec3(scaleF, scaleF, scaleF));
 
         proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
         //printdglm(proj);

@@ -13,12 +13,12 @@ void pipeline::AssembleTriangles(vec4* vertices, int count) {
 		vec4& v1 = vertices[i + 1];
 		vec4& v2 = vertices[i + 2];
 
+#if defined(CULLBACK)
 		//CULLBACK
         vec3 v30 = vec3(v0.x, v0.y, v0.z);
         vec3 v31 = vec3(v1.x, v1.y, v1.z);
         vec3 v32 = vec3(v2.x, v2.y, v2.z);
 
-#if defined(CULLBACK)
         if ((v31 - v30) % (v32 - v30) * v30 <= 0.0f)
 #endif
 		    ProcessTriangle(v0, v1, v2);
