@@ -66,7 +66,12 @@ void pipeline::DrawLine(vec3& v0, vec3& v1) {
 
     while (i <= step)
     {
+#if defined(INT13H)
+        double_buffer[(unsigned int)x * WIDTH + (unsigned int)y] = 15;
+#else
         setpix(active_page, (int)x, (int)y, 15);
+#endif
+        
         x += dx;
         y += dy;
         i++;

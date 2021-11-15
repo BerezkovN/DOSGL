@@ -77,7 +77,7 @@ int main() {
     unsigned int vertCount = 0;
     unsigned int indCount = 0;
 
-    extractFromOBJ("MODELS\\cube.obj", &vertices, vertCount, &indices, indCount);
+    extractFromOBJ("MODELS\\love.obj", &vertices, vertCount, &indices, indCount);
 
     dglViewPort(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -93,7 +93,7 @@ int main() {
     float rotationY = 0;
     float rotationZ = 0;
 
-    float scaleF = 1.0f;
+    float scaleF = 0.01f;
 
     //GAME LOOP
     while (kc != 0x1b) {
@@ -121,10 +121,10 @@ int main() {
                 rotationZ -= 10;
                 break;
             case 't':
-                scaleF += 0.1f;
+                scaleF += 0.01f;
                 break;
             case 'g':
-                scaleF -= 0.1f;
+                scaleF -= 0.01f;
                 break;
             }
         }
@@ -135,6 +135,9 @@ int main() {
         mat4 model = mat4(1.0f); // make sure to initialize matrix to identity matrix first
         mat4 v = mat4(1.0f);
         mat4 proj = mat4(1.0f);
+		
+		//float posX = 0.0f;
+		//float posY = 0.0f;
 
         model = translate(model, vec3(0.0f, 0.0f, -3.0f));
 
@@ -144,7 +147,7 @@ int main() {
 
         model = scale(model, vec3(scaleF, scaleF, scaleF));
 
-        proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+        proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 1.0f, 10.0f);
         //printdglm(proj);
 
         unsigned int modLoc = dglGetUniformLocation("model");

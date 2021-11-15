@@ -1,6 +1,8 @@
 #ifndef __PIPELINE_H
 #define __PIPELINE_H
 
+//#define INT13H
+
 #include "dglm.h"
 #include "vga.h"
 
