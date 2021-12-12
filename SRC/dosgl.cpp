@@ -9,24 +9,6 @@
 #include "dosgl.h"
 #include "pipeline.h"
 
-struct attribPointer {
-	unsigned int vertexBuffer;
-	//bool enabled = false;
-	unsigned int index;
-	int normalized;
-	unsigned int stride;
-	void* pointer;
-};
-
-struct VAO {
-	unsigned int elementBuffer;
-	unsigned int length;
-	attribPointer* attribs;
-
-	VAO() {
-		length = DGL_MAX_VERTEX_ATTRIBS;
-	}
-};
 
 unsigned int vertexArrayCount = 0;
 unsigned int currentVertexArray = 0;
@@ -37,7 +19,7 @@ unsigned int bufferCount = 0;
 unsigned int currentVertexBuffer = 0;
 unsigned int currentElementBuffer = 0;
 
-void** buffers = new void* [DGL_MAX_AMOUNT_OF_BUFFERS];
+void** buffers;
 
 shader* internalShader;
 
@@ -114,7 +96,7 @@ void dglGenVertexArrays(unsigned int size, unsigned int* buffs) {
 	for (int ind = 0; ind < size; ind++)
 	{
 		buffs[ind] = ++vertexArrayCount;
-		vertexArrays[vertexArrayCount].attribs = new attribPointer[DGL_MAX_VERTEX_ATTRIBS];
+		vertexArrays[vertexArrayCount].attributes = new attributePointer[DGL_MAX_VERTEX_ATTRIBS];
 	}
 }
 
@@ -130,7 +112,7 @@ void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int str
 		cout << "VAO is not bound\n";
 		return;
 	}
-	attribPointer* attribs = vertexArrays[currentVertexArray].attribs;
+	attributePointer* attribs = vertexArrays[currentVertexArray].attributes;
 
 	attribs[index].vertexBuffer = currentVertexBuffer;
 	attribs[index].index = index;
@@ -166,33 +148,37 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		cout << "VAO is not bound\n";
 		return;
 	}
+	
+	VAO& vao = vertexArrays[currentVertexArray];
 
-	VAO vao = vertexArrays[currentVertexArray];
+	vec4* vertices = new vec4[3];
 
-#if defined(DEBUG)
-	cout << "\nvao.elementBuffer = " << vao.elementBuffer;
-	cout << "\nElement buffer: " << ((unsigned int*)buffers[vao.elementBuffer])[1] << "\n";
-#endif
-
-	vec4* vertices = new vec4[count];
-
-	//VERTEX SPECIFICATION STAGE
-	for (int ind = 0; ind < count; ind++)
+	for (int ind = 0; ind < count; ind += 3)
 	{
-		for (int attribInd = 0; attribInd < internalShader->attributes; attribInd++)
+		for (int attribInd0 = 0; attribInd0 < internalShader->attributes; attribInd0++)
 		{
-			int currentPos = (int)vao.attribs[attribInd].pointer + vao.attribs[attribInd].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind];
-			internalShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
+			int currentPos = (int)vao.attributes[attribInd0].pointer + vao.attributes[attribInd0].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind];
+			internalShader->setAttribute(attribInd0, currentPos, buffers[vao.attributes[attribInd0].vertexBuffer]);
 		}
+		vertices[0] = internalShader->vert();
 
-		//So instead of copying vec4 to the vertices array, i just store their addresses
-		//Those vec4 are stored in the stack and we don't end function here so we should not be affraid to pass those addresses to a pipeline
-		vertices[ind] = internalShader->vert();
+		for (int attribInd1 = 0; attribInd1 < internalShader->attributes; attribInd1++)
+		{
+			int currentPos = (int)vao.attributes[attribInd1].pointer + vao.attributes[attribInd1].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind + 1];
+			internalShader->setAttribute(attribInd1, currentPos, buffers[vao.attributes[attribInd1].vertexBuffer]);
+		}
+		vertices[1] = internalShader->vert();
+
+		for (int attribInd2 = 0; attribInd2 < internalShader->attributes; attribInd2++)
+		{
+			int currentPos = (int)vao.attributes[attribInd2].pointer + vao.attributes[attribInd2].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind + 2];
+			internalShader->setAttribute(attribInd2, currentPos, buffers[vao.attributes[attribInd2].vertexBuffer]);
+		}
+		vertices[2] = internalShader->vert();
+
+		internalPipeline.AssembleTriangle(vertices);
 	}
 
-
-
-	internalPipeline.Draw(vertices, count);
 	delete vertices;
 }
 
@@ -203,6 +189,8 @@ void dglSwapBuffers() {
 }
 
 void dglInit() {
+	buffers = new void* [DGL_MAX_AMOUNT_OF_BUFFERS];
+
 	set_unchained_mode();
 
 	visual_page = 0;

@@ -6,23 +6,21 @@
 
 //#define CULLBACK
 
-void pipeline::AssembleTriangles(vec4* vertices, int count) {
-	for (int i = 0; i < count; i += 3)
-	{
-		vec4& v0 = vertices[i];
-		vec4& v1 = vertices[i + 1];
-		vec4& v2 = vertices[i + 2];
+void pipeline::AssembleTriangle(vec4* vertices) {
+	vec4& v0 = vertices[0];
+	vec4& v1 = vertices[1];
+	vec4& v2 = vertices[2];
 
 #if defined(CULLBACK)
-		//CULLBACK
-        vec3 v30 = vec3(v0.x, v0.y, v0.z);
-        vec3 v31 = vec3(v1.x, v1.y, v1.z);
-        vec3 v32 = vec3(v2.x, v2.y, v2.z);
+	//CULLBACK
+    vec3 v30 = vec3(v0.x, v0.y, v0.z);
+    vec3 v31 = vec3(v1.x, v1.y, v1.z);
+    vec3 v32 = vec3(v2.x, v2.y, v2.z);
 
-        if ((v31 - v30) % (v32 - v30) * v30 <= 0.0f)
+    if ((v31 - v30) % (v32 - v30) * v30 <= 0.0f)
 #endif
-		    ProcessTriangle(v0, v1, v2);
-	}
+		ProcessTriangle(v0, v1, v2);
+
 }
 
 vec3 pipeline::toScreenSpace(vec4& vert) {
@@ -83,8 +81,4 @@ void pipeline::DrawLine(vec3& v0, vec3& v1) {
         y += dy;
         i++;
     }
-}
-
-void pipeline::Draw(vec4* vertices, int count) {
-	AssembleTriangles(vertices, count);
 }
