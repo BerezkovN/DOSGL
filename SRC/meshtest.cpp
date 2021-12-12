@@ -77,7 +77,7 @@ int main() {
     unsigned int vertCount = 0;
     unsigned int indCount = 0;
 
-    extractFromOBJ("MODELS\\love.obj", &vertices, vertCount, &indices, indCount);
+    extractFromOBJ("MODELS\\cube.obj", &vertices, vertCount, &indices, indCount);
 
     dglViewPort(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -147,7 +147,7 @@ int main() {
 
         model = scale(model, vec3(scaleF, scaleF, scaleF));
 
-        proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 1.0f, 10.0f);
+        proj = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 1.0f, 10000.0f);
         //printdglm(proj);
 
         unsigned int modLoc = dglGetUniformLocation("model");

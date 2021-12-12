@@ -9,10 +9,10 @@ byte* double_buffer;
 word visual_page;
 word active_page;
 
-/**************************************************************************
-*  set_mode                                                              *
-*     Sets the video mode.                                               *
-**************************************************************************/
+/***
+ *  set_mode                                                              
+ *     Sets the video mode.                                               
+ */
 
 void set_mode(byte mode)
 {
@@ -23,10 +23,10 @@ void set_mode(byte mode)
     int86(VIDEO_INT, &regs, &regs);
 }
 
-/**************************************************************************
-*  set_unchained_mode                                                    *
-*    resets VGA mode 0x13 to unchained mode to access all 256K of memory *
-**************************************************************************/
+/***
+ *  set_unchained_mode                                                    
+ *    resets VGA mode 0x13 to unchained mode to access all 256K of memory 
+ */
 
 void set_unchained_mode(void)
 {
@@ -49,11 +49,11 @@ void set_unchained_mode(void)
     outp(CRTC_DATA, 0xe3);
 }
 
-/**************************************************************************
-*  page_flip                                                             *
-*    switches the pages at the appropriate time and waits for the        *
-*    vertical retrace.                                                   *
-**************************************************************************/
+/***
+ *  page_flip                                                             
+ *    switches the pages at the appropriate time and waits for the        
+ *    vertical retrace.                                                   
+ */
 
 void page_flip(word* page1, word* page2)
 {

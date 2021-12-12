@@ -1,4 +1,5 @@
 #include "shader.h"
+#include <iostream.h>
 
 class simpleShader : public shader {
 private:
@@ -28,6 +29,10 @@ public:
 	}
 
 	vec4 vert() {
+#if defined(DEBUG)
+		cout << "\nPoint in vertex shader:\n";
+		cout << " " << aPos.x << " " << aPos.y << " " << aPos.z << "\n";
+#endif
 		vec4 pos(aPos.x, aPos.y, aPos.z, 1.0f);
 		return projection * view * model * pos;
 	}

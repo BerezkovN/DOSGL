@@ -19,6 +19,7 @@ public:
 		this->z = z;
 	}
 
+	/*Simple indexator*/
 	float& operator[](int ind);
 
 	vec3 operator+ (vec3 vec) {
@@ -29,12 +30,12 @@ public:
 		return vec3(x - vec.x, y - vec.y, z - vec.z);
 	}
 
-	//Dot product
+	/*Dot product*/
 	float operator* (vec3 vec) {
 		return x * vec.x + y * vec.y + z * vec.z;
 	}
 
-	//Cross product
+	/*Cross product*/
 	vec3 operator% (vec3 vec) {
 		return vec3(
 			y * vec.z - z * vec.y,
@@ -92,7 +93,7 @@ public:
 
 	mat4(float x);
 
-	//A(mat4) * B(vec4) = C(vec4) 
+	/*Matrix-vector multiplication*/
 	vec4 operator* (vec4 vec) {
 		vec4 A0 = matrix[0];
 		vec4 A1 = matrix[1];
@@ -102,7 +103,7 @@ public:
 		return (A0 * vec[0] + A1 * vec[1] + A2 * vec[2] + A3 * vec[3]);
 	}
 
-	//A(mat4) * B(mat4) = C(mat4)
+	/*Matrix-matrix multiplication*/
 	mat4 operator* (mat4 mat) {
 		vec4 A0 = matrix[0];
 		vec4 A1 = matrix[1];
@@ -123,6 +124,7 @@ public:
 		return C;
 	}
 
+	/*Simple indexator*/
 	vec4& operator[](int ind) {
 		return matrix[ind];
 	}

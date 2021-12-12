@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <dos.h>
 
+//#define DEBUG
+
 #include "shader.h"
 #include "dosgl.h"
 #include "pipeline.h"
@@ -88,11 +90,21 @@ void dglBufferData(unsigned int mode, unsigned int size, void* data) {
 			return;
 		}
 
+
+
 		int length = size / (sizeof(unsigned int));
 		buffers[currentElementBuffer] = new unsigned int[length];
 
+#if defined(DEBUG)
+		cout << "\n buffer data\n = " << currentElementBuffer;
+#endif
+
 		for (int ind = 0; ind < length; ind++)
 		{
+#if defined(DEBUG)
+			cout << ((unsigned int*)data)[ind] << " ";
+#endif
+
 			((unsigned int*)buffers[currentElementBuffer])[ind] = ((unsigned int*)data)[ind];
 		}
 	}
@@ -144,37 +156,6 @@ void dglUniformMatrix4fv(int location, const float* value) {
 	internalShader->setUniformMatrix4fv(location, value);
 }
 
-//void dglDrawArrays(unsigned int mode, unsigned int first, unsigned int count) {
-//	if (currentVertexArray == 0)
-//	{
-//		cout << "VAO is not bound\n";
-//		return;
-//	}
-//
-//	VAO vao = vertexArrays[currentVertexArray];
-//
-//
-//	int length = count + first;
-//	for (int ind = first; ind < length; ind++)
-//	{
-//		for (int attribInd = 0; attribInd < internalShader->attributes; attribInd++)
-//		{
-//			int currentPos = (int)vao.attribs[attribInd].pointer + vao.attribs[attribInd].stride * ind;
-//			internalShader->setAttribute(attribInd, currentPos, buffers[vao.attribs[attribInd].vertexBuffer]);
-//		}
-//
-//		vec4 vert = internalShader->vert();
-//
-//		//std::cout << vert.x << " " << vert.y << " " << vert.z << " " << vert.w << std::endl;
-//
-//		vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
-//
-//		vec3 windows = vec3(WIDTH / 2 * ndc.x + (CORNERX + WIDTH / 2), HEIGHT / 2 * ndc.y + (CORNERY + HEIGHT / 2), 0);
-//
-//		cout << "Window:\n" << windows.x << " " << windows.y << " " << windows.z << endl;
-//	}
-//}
-
 void dglDrawElements(unsigned int mode, const unsigned int count) {
 	//We are dealing with triangles here
 	assert(count % 3 == 0);
@@ -187,6 +168,11 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 	}
 
 	VAO vao = vertexArrays[currentVertexArray];
+
+#if defined(DEBUG)
+	cout << "\nvao.elementBuffer = " << vao.elementBuffer;
+	cout << "\nElement buffer: " << ((unsigned int*)buffers[vao.elementBuffer])[1] << "\n";
+#endif
 
 	vec4* vertices = new vec4[count];
 
@@ -202,17 +188,6 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		//So instead of copying vec4 to the vertices array, i just store their addresses
 		//Those vec4 are stored in the stack and we don't end function here so we should not be affraid to pass those addresses to a pipeline
 		vertices[ind] = internalShader->vert();
-		
-
-		/*vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
-
-		vec3 windows = vec3(WIDTH / 2 * ndc.x + (CORNERX + WIDTH / 2), HEIGHT / 2 * ndc.y + (CORNERY + HEIGHT / 2), 0);
-
-#if defined(INT13H)
-		double_buffer[(unsigned int)windows.y * WIDTH + (unsigned int)windows.x] = 15;
-#else
-		setpix(active_page, (int)windows.x, (int)windows.y, 15);
-#endif*/
 	}
 
 

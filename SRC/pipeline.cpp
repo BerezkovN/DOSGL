@@ -39,6 +39,13 @@ void pipeline::ProcessTriangle(vec4& v0, vec4& v1, vec4& v2) {
 }
 
 void pipeline::DrawTriangle(const triangle& trig) {
+#if defined(DEBUG)
+    cout << "\nTriangle being draw with coordinates:\n";
+    cout << " " << trig.v0.x << " " << trig.v0.y << "\n";
+    cout << " " << trig.v1.x << " " << trig.v1.y << "\n";
+    cout << " " << trig.v2.x << " " << trig.v2.y << "\n";
+#endif
+
     DrawLine(trig.v0, trig.v1);
     DrawLine(trig.v1, trig.v2);
     DrawLine(trig.v2, trig.v0);
