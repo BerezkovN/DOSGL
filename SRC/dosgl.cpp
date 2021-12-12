@@ -197,31 +197,16 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 }
 
 void dglSwapBuffers() {
-#if defined(INT13H)
-	show_buffer(double_buffer);
-	memset(double_buffer, 0, SCREEN_SIZE);
-#else
 	page_flip(&visual_page, &active_page);
 	outpw(SC_INDEX, ALL_PLANES);
 	memset(&VGA[active_page], 0, SCREEN_SIZE / 4);
-
-#endif
 }
 
 void dglInit() {
-#if defined(INT13H)
-	if ((double_buffer = (byte*)malloc(SCREEN_SIZE)) == NULL)
-	{
-		cout << "Not enough memory for double buffer.\n";
-		exit(1);
-	}
-	set_mode(VGA_256_COLOR_MODE);
-#else
 	set_unchained_mode();
 
 	visual_page = 0;
 	active_page = SCREEN_SIZE / 4;
-#endif
 }
 
 void dglTerminate() {
