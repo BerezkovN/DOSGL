@@ -8,7 +8,7 @@
 int main() {
 	dglInit();
 
-	float vertices[] = { 
+	float vertices[] = {
 		0.0f, 0.0f, 0.5f,
 		0.5f, 0.0f, 0.0f,
 		0.5f, 0.5f, 0.0f,
@@ -39,9 +39,9 @@ int main() {
 
 	simpleShader myShader;
 	dglUseProgram(myShader);
-	
+
 	float rotationX = 0;
-	char kc = 0; 
+	char kc = 0;
 
 	while (kc != 0x1b) {
 
@@ -80,3 +80,4 @@ int main() {
 
 	dglTerminate();
 }
+

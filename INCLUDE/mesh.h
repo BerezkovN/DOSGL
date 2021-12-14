@@ -1,13 +1,15 @@
 #ifndef __MESH_H
 #define __MESH_H
 
+#include <iostream.h>
+
 #include "dglm.h"
 #include "dosgl.h"
 
 class Mesh {
 public:
     // mesh Data
-    float*           vertices;
+    float*          vertices;
     size_t          vertCount;
     unsigned int*   indices;
     size_t          indCount;
@@ -30,6 +32,7 @@ public:
     {
         // draw mesh
         dglBindVertexArray(VAO);
+        cout << "About to draw elements\n";
         dglDrawElements(DGL_TRIANGLES, indCount);
         dglBindVertexArray(0);
     }
