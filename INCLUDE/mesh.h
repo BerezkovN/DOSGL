@@ -59,7 +59,6 @@ private:
 
         // set the vertex attribute pointers
         // vertex Positions
-        //dglEnableVertexAttribArray(0);
         dglVertexAttribPointer(0, 0, 3 * sizeof(float), (void*)0);
         dglBindVertexArray(0);
     }

@@ -29,17 +29,13 @@ public:
 	}
 
 	vec4 vert() {
-#if defined(DEBUG)
-		cout << "\nPoint in vertex shader:\n";
-		cout << " " << aPos.x << " " << aPos.y << " " << aPos.z << "\n";
-#endif
 		vec4 pos(aPos.x, aPos.y, aPos.z, 1.0f);
 		return projection * view * model * pos;
 	}
 
-	void setAttribute(unsigned int index, unsigned int position, void* data) {
-		if (index == 0) {
-			retrieveVec3(&aPos, (float*)((char*)data + position));
+	void setAttribute(unsigned int location, unsigned int offset, void* data) {
+		if (location == 0) {
+			retrieveVec3(&aPos, (float*)((char*)data + offset));
 		}
 	}
 

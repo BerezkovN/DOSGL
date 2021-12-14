@@ -1,7 +1,5 @@
 #include <conio.h>
 
-//#define DEBUG
-
 #include "dosgl.h"
 #include "iostream.h"
 #include "smplShdr.h"
@@ -11,7 +9,7 @@ int main() {
 	dglInit();
 
 	float vertices[] = { 
-		0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.5f,
 		0.5f, 0.0f, 0.0f,
 		0.5f, 0.5f, 0.0f,
 		0.0f, 0.5f, 0.0f

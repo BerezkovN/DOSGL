@@ -6,6 +6,8 @@
 ///
 /// Code was taken and cleaned up from David Brackeen's article:
 /// http://www.brackeen.com/vga/unchain.html#3
+/// 
+/// Writen by Nikita Berezkov
 //*/
 
 #define VIDEO_INT           0x10      /* the BIOS video interrupt. */

@@ -1,3 +1,10 @@
+/*/// dglm.h
+///	Simple clone of glm library
+/// Includes simple vector and matrix calculations
+///
+/// Written by Nikita Berezkov
+//*/
+
 #ifndef __DGLM_H
 #define __DGLM_H
 
@@ -132,8 +139,6 @@ public:
 private:
 	vec4 matrix[4];
 };
-
-
 
 mat4 translate(mat4 matrix, vec3 vector);
 

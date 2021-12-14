@@ -1,33 +1,16 @@
+/*/// pipeline.h
+///	Handles basic graphics pipeline that assembles triangles and draws them on screen
+/// 
+/// Writen by Nikita Berezkov
+//*/
+
 #ifndef __PIPELINE_H
 #define __PIPELINE_H
-
-//#define INT13H
 
 #include "dglm.h"
 #include "vga.h"
 
-#define DGL_MAX_VERTEX_ATTRIBS 20
-
-struct attributePointer {
-	unsigned int vertexBuffer;
-	//bool enabled = false;
-	unsigned int index;
-	int normalized;
-	unsigned int stride;
-	void* pointer;
-};
-
-struct VAO {
-	unsigned int elementBuffer;
-	unsigned int length;
-	attributePointer* attributes;
-
-	VAO() {
-		length = DGL_MAX_VERTEX_ATTRIBS;
-	}
-};
-
-class triangle {
+struct triangle {
 public:
 	vec3 v0;
 	vec3 v1;
@@ -42,13 +25,13 @@ public:
 
 class pipeline {
 public:
+	//Parameters that are set by dglViewPort()
 	unsigned int WIDTH;
 	unsigned int HEIGHT;
 	unsigned int CORNERX;
 	unsigned int CORNERY;
 
 private:
-	void ProcessTriangle(vec4& v0, vec4& v1, vec4& v2);
 	void DrawTriangle(const triangle& triangle);
 	void DrawLine(vec3& v0, vec3& v1);
 

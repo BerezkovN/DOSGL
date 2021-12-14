@@ -1,3 +1,9 @@
+/*/// str.h
+///	Provides simple string class
+///
+/// Written by Nikita Berezkov
+//*/
+
 #ifndef __STR_H
 #define __STR_H
 
@@ -7,23 +13,26 @@ class String {
 public:
    char* char_ptr;   // pointer to string contents
    int length;       // length of string in characters
-   // three different constructors
-   String(char *text);           // constructor using existing string
-   String(int size = 80);        // creates default empty string
-   String(String& Other_String); // for assignment from another
 
-   ~String() {delete char_ptr;}; // inline destructor
+   String(char *text);           
+   String(int size = 80);       
+   String(String& Other_String); 
+
+   ~String() {delete char_ptr;}; 
    int Get_len (void);
    String operator+ (String& Arg);
 };
 
 String::String(char* text)
 {
-	length = strlen(text);  // get length of text
+	length = strlen(text);  
 	char_ptr = new char[length + 1];
 	strcpy(char_ptr, text);
 };
 
+/***
+ *	Creates empty string
+ */
 String::String(int size)
 {
 	length = size;
@@ -33,9 +42,9 @@ String::String(int size)
 
 String::String(String& Other_String)
 {
-	length = Other_String.length;       // length of other string
-	char_ptr = new char[length + 1];   // allocate the memory
-	strcpy(char_ptr, Other_String.char_ptr); // copy the text
+	length = Other_String.length;       
+	char_ptr = new char[length + 1]; 
+	strcpy(char_ptr, Other_String.char_ptr); 
 };
 
 String String::operator+ (String& Arg)

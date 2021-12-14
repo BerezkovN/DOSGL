@@ -12,9 +12,7 @@ float& vec3::operator[](int ind) {
 }
 
 void vec3::print() {
-	cout << "(";
-	cout << x;
-	cout << ", " << y << ", " << z << ")   \n";
+	cout << "(" << x << ", " << y << ", " << z << ")   \n";
 }
 
 float& vec4::operator[](int ind) {
@@ -40,6 +38,10 @@ mat4::mat4()
 	}
 }
 
+/***
+ *	mat4 constructor 
+ *		Sets matrix diagional with specified value
+ */
 mat4::mat4(float x)
 {
 	for (int ind = 0; ind < 4; ind++)
