@@ -182,9 +182,6 @@ int test = 0;
  *	Draws using VBO and EBO of currently bound VAO 
  */
 void dglDrawElements(unsigned int mode, const unsigned int count) {
-	cout << "In draw elements";
-	cin.get();
-
 	//We are dealing with triangles here
 	assert(count % 3 == 0);
 
@@ -197,8 +194,6 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 	VAO& vao = vertexArrays[currentVertexArray];
 
 	vec4* vertices = new vec4[3];
-
-	cout << "Works" << test << "\n";
 
 	for (int ind = 0; ind < count; ind += 3)
 	{

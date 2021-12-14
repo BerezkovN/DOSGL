@@ -32,7 +32,7 @@ public:
     {
         // draw mesh
         dglBindVertexArray(VAO);
-        cout << "About to draw elements\n";
+        //cout << "About to draw elements\n";
         dglDrawElements(DGL_TRIANGLES, indCount);
         dglBindVertexArray(0);
     }

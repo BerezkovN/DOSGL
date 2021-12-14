@@ -1,4 +1,5 @@
 #include <conio.h>
+#include <stdio.h>
 
 #include "dosgl.h"
 #include "iostream.h"
@@ -8,16 +9,24 @@
 int main() {
 	dglInit();
 
-	float vertices[] = {
-		0.0f, 0.0f, 0.5f,
-		0.5f, 0.0f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f
-	};
+	float vertices[] = {        
+		-0.5f, -0.5f, -0.5f, 
+		 0.5f, -0.5f, -0.5f,
+		-0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
 
+		-0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f
+	};
 	unsigned int indices[] = {
-		0, 1, 2,
-		0, 2, 3
+		0,2,1, 2,3,1,
+		1,3,5, 3,7,5,
+		2,6,3, 3,6,7,
+		4,5,7, 4,7,6,
+		0,4,2, 2,4,6,
+		0,1,4, 1,5,4
 	};
 
 	dglViewPort(0, 0, 320, 200);
@@ -41,43 +50,60 @@ int main() {
 	dglUseProgram(myShader);
 
 	float rotationX = 0;
+    float rotationY = 0;
+    float rotationZ = 0;
 	char kc = 0;
 
-	while (kc != 0x1b) {
+    while (kc != 0x1b) {
 
-		if (kbhit()) {
-			kc = getch();
+        if (kbhit()) {
+            kc = getch();
 
-			switch (kc) {
-			case 'w':
-				rotationX += 10;
-				break;
-			case 's':
-				rotationX -= 10;
-				break;
-			}
-		}
+            switch (kc) {
+            case 'w':
+                rotationX += 10;
+                break;
+            case 's':
+                rotationX -= 10;
+                break;
+            case 'a':
+                rotationY += 10;
+                break;
+            case 'd':
+                rotationY -= 10;
+                break;
+            case 'e':
+                rotationZ += 10;
+                break;
+            case 'q':
+                rotationZ -= 10;
+                break;
+            }
+        }
 
-		mat4 model = mat4(1.0f);
-		mat4 v = mat4(1.0f);
-		mat4 proj = mat4(1.0f);
+        mat4 model = mat4(1.0f);
+        mat4 v = mat4(1.0f);
+        mat4 proj = mat4(1.0f);
 
-		model = translate(model, vec3(0.0f, 0.0f, -3.0f));
-		model = rotate(model, radians(rotationX), vec3(1.0f, 0.0f, 0.0f));
+        model = translate(model, vec3(0.0f, 0.0f, -3.0f));
 
-		unsigned int modLoc = dglGetUniformLocation("model");
-		unsigned int vLoc = dglGetUniformLocation("view");
-		unsigned int projLoc = dglGetUniformLocation("projection");
+        model = rotate(model, radians(rotationX), vec3(1.0f, 0.0f, 0.0f));
+        model = rotate(model, radians(rotationY), vec3(0.0f, 1.0f, 0.0f));
+        model = rotate(model, radians(rotationZ), vec3(0.0f, 0.0f, 1.0f));
 
-		dglUniformMatrix4fv(modLoc, &model[0][0]);
-		dglUniformMatrix4fv(vLoc, &v[0][0]);
-		dglUniformMatrix4fv(projLoc, &proj[0][0]);
+        proj = perspective(radians(45.0f), (float)320 / (float)200, 100.0f, 1.0f);
 
-		dglDrawElements(DGL_TRIANGLES, 6);
-		dglSwapBuffers();
+        unsigned int modLoc = dglGetUniformLocation("model");
+        unsigned int vLoc = dglGetUniformLocation("view");
+        unsigned int projLoc = dglGetUniformLocation("projection");
 
-	}
+        dglUniformMatrix4fv(modLoc, &model[0][0]);
+        dglUniformMatrix4fv(vLoc, &v[0][0]);
+        dglUniformMatrix4fv(projLoc, &proj[0][0]);
+
+        dglDrawElements(DGL_TRIANGLES, 36);
+        dglSwapBuffers();
+    }
 
 	dglTerminate();
 }
-
