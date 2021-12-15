@@ -225,7 +225,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		internalPipeline.AssembleTriangle(vertices);
 	}
 
-	delete vertices;
+	delete[] vertices;
 }
 
 /***
@@ -254,9 +254,9 @@ void dglInit() {
  *	Immediatly terminates program 
  */
 void dglTerminate() {
-	delete buffers;
-	delete vertexArrays;
-	delete internalShader;
+	delete[] buffers;
+	delete[] vertexArrays;
+	delete[] internalShader;
 
 	set_mode(TEXT_MODE);
 	exit(1);
@@ -266,9 +266,9 @@ void dglTerminate() {
  *	Terminates program with message and waits for input
  */
 void dglTerminate(String message) {
-	delete buffers;
-	delete vertexArrays;
-	delete internalShader;
+	delete[] buffers;
+	delete[] vertexArrays;
+	delete[] internalShader;
 
 	set_mode(TEXT_MODE);
 	cout << "Program was terminated\n"

@@ -2,60 +2,61 @@
 #include <stdio.h>
 
 #include "dosgl.h"
-#include "iostream.h"
 #include "smplShdr.h"
 #include "dglm.h"
+#include "vga.h"
 
 int main() {
-	dglInit();
+    dglInit();
 
-	float vertices[] = {        
-		-0.5f, -0.5f, -0.5f, 
-		 0.5f, -0.5f, -0.5f,
-		-0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
+    float vertices[] = {
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
 
-		-0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f
-	};
-	unsigned int indices[] = {
-		0,2,1, 2,3,1,
-		1,3,5, 3,7,5,
-		2,6,3, 3,6,7,
-		4,5,7, 4,7,6,
-		0,4,2, 2,4,6,
-		0,1,4, 1,5,4
-	};
+        -0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f
+    };
+    unsigned int indices[] = {
+        0,2,1, 2,3,1,
+        1,3,5, 3,7,5,
+        2,6,3, 3,6,7,
+        4,5,7, 4,7,6,
+        0,4,2, 2,4,6,
+        0,1,4, 1,5,4
+    };
 
-	dglViewPort(0, 0, 320, 200);
+    dglViewPort(0, 0, 320, 200);
 
-	unsigned int vao, vbo, ebo;
-	dglGenVertexArrays(1, &vao);
-	dglGenBuffers(1, &vbo);
-	dglGenBuffers(1, &ebo);
+    unsigned int vao, vbo, ebo;
+    dglGenVertexArrays(1, &vao);
+    dglGenBuffers(1, &vbo);
+    dglGenBuffers(1, &ebo);
 
-	dglBindVertexArray(vao);
+    dglBindVertexArray(vao);
 
-	dglBindBuffer(DGL_ARRAY_BUFFER, vbo);
-	dglBufferData(DGL_ARRAY_BUFFER, sizeof(vertices), vertices);
+    dglBindBuffer(DGL_ARRAY_BUFFER, vbo);
+    dglBufferData(DGL_ARRAY_BUFFER, sizeof(vertices), vertices);
 
-	dglBindBuffer(DGL_ELEMENT_ARRAY_BUFFER, ebo);
-	dglBufferData(DGL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices);
+    dglBindBuffer(DGL_ELEMENT_ARRAY_BUFFER, ebo);
+    dglBufferData(DGL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices);
 
-	dglVertexAttribPointer(0, 0, 3 * sizeof(float), (void*)(0));
+    dglVertexAttribPointer(0, 0, 3 * sizeof(float), (void*)(0));
 
-	simpleShader myShader;
-	dglUseProgram(myShader);
+    simpleShader myShader;
+    dglUseProgram(myShader);
 
-	float rotationX = 0;
+    float rotationX = 0;
     float rotationY = 0;
     float rotationZ = 0;
-	char kc = 0;
+    char kc = 0;
 
+    //While not pressed ESCAPE
     while (kc != 0x1b) {
-
+        //If any key pressed
         if (kbhit()) {
             kc = getch();
 
@@ -105,5 +106,5 @@ int main() {
         dglSwapBuffers();
     }
 
-	dglTerminate();
+    dglTerminate();
 }

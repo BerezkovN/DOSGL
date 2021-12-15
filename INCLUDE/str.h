@@ -18,7 +18,7 @@ public:
    String(int size = 80);       
    String(String& Other_String); 
 
-   ~String() {delete char_ptr;}; 
+   ~String() {delete[] char_ptr;}; 
    int Get_len (void);
    String operator+ (String& Arg);
 };

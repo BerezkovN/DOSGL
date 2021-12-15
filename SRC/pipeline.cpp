@@ -62,6 +62,8 @@ void pipeline::DrawLine(vec3& v0, vec3& v1) {
 
     while (i <= step)
     {
+        //Performance killer
+        if (x >= 0 && x <= SCREEN_WIDTH && y >= 0 && y <= SCREEN_HEIGHT)
         setpix(active_page, (int)x, (int)y, 15);
         
         x += dx;
