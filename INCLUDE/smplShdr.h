@@ -19,10 +19,8 @@ public:
 	simpleShader() {
 		attributes = 1;
 
-		//Default values for attributes
 		aPos = vec3(0.0f, 0.0f, 0.0f);
 
-		//Default values for uniforms
 		model = mat4(1.0f);
 		view = mat4(1.0f);
 		projection = mat4(1.0f);

@@ -1,7 +1,10 @@
-#include "dglm.h"
+﻿#include "dglm.h"
 
 #include <iostream.h>
 
+/***
+ * Індексатор
+ */
 float& vec3::operator[](int ind) {
 	if (ind == 0)
 		return x;
@@ -11,10 +14,16 @@ float& vec3::operator[](int ind) {
 		return z;
 }
 
+/***
+ *	Вивід вектора на екран
+ */
 void vec3::print() {
 	cout << "(" << x << ", " << y << ", " << z << ")   \n";
 }
 
+/***
+ * Індексатор
+ */
 float& vec4::operator[](int ind) {
 	if (ind == 0)
 		return x;
@@ -26,10 +35,16 @@ float& vec4::operator[](int ind) {
 		return w;
 }
 
+/***
+ *	Вивід вектора на екран
+ */
 void vec4::print() {
 	cout << "(" << x << ", " << y << ", " << z << ", " << w << ")   \n";
 }
 
+/***
+ * Конструктор який задає всім елементам 0
+ */
 mat4::mat4()
 {
 	for (int ind = 0; ind < 4; ind++)
@@ -39,8 +54,7 @@ mat4::mat4()
 }
 
 /***
- *	mat4 constructor 
- *		Sets matrix diagional with specified value
+ *	Конструктор який задає діагональне значення
  */
 mat4::mat4(float x)
 {
@@ -55,6 +69,9 @@ mat4::mat4(float x)
 	matrix[3].w = x;
 }
 
+/***
+ *	Матриця переміщення
+ */
 mat4 translate(mat4 matrix, vec3 vector) {
 	mat4 transform(1.0f);
 
@@ -63,10 +80,12 @@ mat4 translate(mat4 matrix, vec3 vector) {
 	return transform * matrix;
 }
 
+/***
+ *	Матриця масштабування
+ */
 mat4 scale(mat4 matrix, vec3 vector) {
 	mat4 scaler(1.0f);
 
-	//We don't simply multiply because that will affect our position
 	scaler[0] = matrix[0] * vector[0];
 	scaler[1] = matrix[1] * vector[1];
 	scaler[2] = matrix[2] * vector[2];
@@ -75,6 +94,9 @@ mat4 scale(mat4 matrix, vec3 vector) {
 	return scaler;
 }
 
+/***
+ *	Матриця обертання
+ */
 mat4 rotate(mat4 matrix, float t, vec3 r) {
 	mat4 rotation(1.0f);
 
@@ -97,6 +119,9 @@ mat4 rotate(mat4 matrix, float t, vec3 r) {
 	return matrix * rotation;
 }
 
+/***
+ *	Матриця проектування за кутом зору
+ */
 mat4 perspective(float fovY, float aspect, float farVal, float nearVal) {
 	float tanHalfFovY = tan(fovY / 2);
 
@@ -110,6 +135,9 @@ mat4 perspective(float fovY, float aspect, float farVal, float nearVal) {
 	return result;
 }
 
+/***
+ *	Матриця проектування
+ */
 mat4 perspective(float left, float right, float bottom, float top, float nearVal, float farVal) {
 	mat4 result;
 	result[0][0] = (2 * nearVal) / (right - left);
@@ -126,6 +154,9 @@ mat4 perspective(float left, float right, float bottom, float top, float nearVal
 	return result;
 }
 
+/***
+ *	Переведення градусів в радіани
+ */
 float radians(float degrees) {
 	return degrees * 0.01745329251f;
 }

@@ -1,4 +1,4 @@
-#include <iostream.h>
+﻿#include <iostream.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <dos.h>
@@ -8,8 +8,7 @@
 #include "pipeline.h"
 
 //**
-//	Struct to hold information that 
-//  comes from dglVertexAttribPointer
+//	Структура для зберігання атибутів
 struct attributePointer {
 	unsigned int vertexBuffer;
 	unsigned int index;
@@ -19,8 +18,7 @@ struct attributePointer {
 };
 
 //**
-//	Struct to hold information about all attributes
-//  Also keeps track of what elemenetBuffer is bound
+//	Структура яка запам'ятовує всі VBO та EBO
 struct VAO {
 	unsigned int elementBuffer;
 	unsigned int length;
@@ -38,21 +36,20 @@ unsigned int currentVertexArray = 0;
 unsigned int currentVertexBuffer = 0;
 unsigned int currentElementBuffer = 0;
 
-//Contains array and element buffers data
-//Every buffer gets an ID that can be later used as
-//index in this array
+//Зберігає в собі вершини та індекси
 void** buffers;
 
-//Array of VAO with size of DGL_MAX_VERTEX_ATTRIBS
+//Масив який зберігає всі VAO
 VAO* vertexArrays;
 
-//Pointer to shader set in dglUseProgram
+//Шейдерна програма яка є наслідником класу shader
 shader* internalShader;
 
+//Об'єкт класу конвеєра
 pipeline internalPipeline;
 
 /***
- * Generates IDs for VAO and EBO
+ * Створює id для VAO та EBO
  */
 void dglGenBuffers(unsigned int size, unsigned int* buffs) {
 	for (int ind = 0; ind < size; ind++)
@@ -62,15 +59,14 @@ void dglGenBuffers(unsigned int size, unsigned int* buffs) {
 }
 
 /***
- *	Specifies what buffer is bound
- *	VAO doesn't memorize VBO yet
+ *	Запам'ятовує буфер і готує до використання
  */
 void dglBindBuffer(unsigned int mode, unsigned int buffer) {
 	if (mode == DGL_ARRAY_BUFFER) {
 		currentVertexBuffer = buffer;
 	}
 	else if (mode == DGL_ELEMENT_ARRAY_BUFFER) {
-		//Simple precaution
+		//Перевірка, для уникнення помилки
 		if (currentVertexArray == 0)
 		{
 			dglTerminate("VAO is not bound\n");
@@ -83,13 +79,13 @@ void dglBindBuffer(unsigned int mode, unsigned int buffer) {
 }
 
 /***
- * Sets data to "buffers"
- *		If mode is DGL_ARRAY_BUFFER, it tries to set data as float values
- *		If mode is DGL_ELEMENT_ARRAY_BUFFER, it tries to set data as uint values
+ * Передає всі значення в buffers
+ *		Якщо mode має значення DGL_ARRAY_BUFFER, то в пам'ять записуються значення типу float
+ *		Якщо mode має значення DGL_ELEMENT_ARRAY_BUFFER, то в пам'ять записуються значення типу unsinged int
  */
 void dglBufferData(unsigned int mode, unsigned int size, const void* data) {
 	if (mode == DGL_ARRAY_BUFFER) {
-		//Simple precaution
+		//Перевірка, для уникнення помилки
 		if (currentVertexBuffer == 0) {
 			dglTerminate("Vertex buffer is not bound\n");
 			return;
@@ -104,7 +100,7 @@ void dglBufferData(unsigned int mode, unsigned int size, const void* data) {
 		}
 	}
 	else if (mode == DGL_ELEMENT_ARRAY_BUFFER) {
-		//Simple precaution
+		//Перевірка, для уникнення помилки
 		if (currentElementBuffer == 0) {
 			dglTerminate("Element array buffer is not bound\n");
 			return;
@@ -139,10 +135,10 @@ void dglBindVertexArray(unsigned int vao) {
 }
 
 /***
- *	Creates attribute pointer that is memorized by VAO
+ *	Створює атрибут і дає VAO його запам'ятати
  */
 void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int stride, void* pointer) {
-	//Simple precaution
+	//Перевірка, для уникнення помилки
 	if (currentVertexArray == 0)
 	{
 		dglTerminate("VAO is not bound\n");
@@ -158,10 +154,10 @@ void dglVertexAttribPointer(unsigned int index, int normalized, unsigned int str
 }
 
 /***
- *	Returns location of uniform field
+ *	Повертає номер локації певного поля в шейдері
  */
 int dglGetUniformLocation(String str) {
-	//Simple precaution
+	//Перевірка, для уникнення помилки
 	if (internalShader == NULL) {
 		dglTerminate("Shader is null");
 	}
@@ -170,19 +166,17 @@ int dglGetUniformLocation(String str) {
 }
 
 /***
- *	Set matrix in shader in specified location 
+ *	Задає значення певного поля в заданій локації в шейдері
  */
 void dglUniformMatrix4fv(int location, const float* value) {
 	internalShader->setUniformMatrix4fv(location, value);
 }
 
-int test = 0;
-
 /***
- *	Draws using VBO and EBO of currently bound VAO 
+ *	Зображає модель на основі використовуємого VAO
  */
 void dglDrawElements(unsigned int mode, const unsigned int count) {
-	//We are dealing with triangles here
+	//Перевірка на трикутник
 	assert(count % 3 == 0);
 
 	if (currentVertexArray == 0)
@@ -192,12 +186,14 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 	}
 	
 	VAO& vao = vertexArrays[currentVertexArray];
+	
+	//Початок графічного конвеєру
 
 	vec4* vertices = new vec4[3];
 
 	for (int ind = 0; ind < count; ind += 3)
 	{
-		//Process first vertex
+		//Перша вершина
 		for (int attribInd0 = 0; attribInd0 < internalShader->attributes; attribInd0++)
 		{
 			int currentPos = (int)vao.attributes[attribInd0].pointer + vao.attributes[attribInd0].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind];
@@ -205,7 +201,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		}
 		vertices[0] = internalShader->vert();
 
-		//Process second vertex
+		//Друга вершина
 		for (int attribInd1 = 0; attribInd1 < internalShader->attributes; attribInd1++)
 		{
 			int currentPos = (int)vao.attributes[attribInd1].pointer + vao.attributes[attribInd1].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind + 1];
@@ -213,7 +209,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		}
 		vertices[1] = internalShader->vert();
 
-		//Process third vertex
+		//Третя вершина
 		for (int attribInd2 = 0; attribInd2 < internalShader->attributes; attribInd2++)
 		{
 			int currentPos = (int)vao.attributes[attribInd2].pointer + vao.attributes[attribInd2].stride * ((unsigned int*)buffers[vao.elementBuffer])[ind + 2];
@@ -221,7 +217,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 		}
 		vertices[2] = internalShader->vert();
 
-		//Passing to the pipeline
+		//Передаєм конвеєру вершини
 		internalPipeline.AssembleTriangle(vertices);
 	}
 
@@ -229,7 +225,7 @@ void dglDrawElements(unsigned int mode, const unsigned int count) {
 }
 
 /***
- *	Flip VGA pages and clear not active page
+ *	Поміняти буфери місцями
  */
 void dglSwapBuffers() {
 	page_flip(&visual_page, &active_page);
@@ -238,7 +234,7 @@ void dglSwapBuffers() {
 }
 
 /***
- *	Initialize all needed arrays and use VGA X mode
+ *	Ініціалізація mode X та деяких масивів
  */
 void dglInit() {
 	buffers = new void* [DGL_MAX_AMOUNT_OF_BUFFERS];
@@ -251,7 +247,7 @@ void dglInit() {
 }
 
 /***
- *	Immediatly terminates program 
+ *	Безпечний вихід з програми
  */
 void dglTerminate() {
 	delete[] buffers;
@@ -263,7 +259,7 @@ void dglTerminate() {
 }
 
 /***
- *	Terminates program with message and waits for input
+ *	Безпечний вихід з програми та додаткове повідомлення
  */
 void dglTerminate(String message) {
 	delete[] buffers;
@@ -280,7 +276,7 @@ void dglTerminate(String message) {
 }
 
 /***
- *	Setup of screen properties 
+ *	Задання властивостей екрана
  */
 void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
 	internalPipeline.CORNERX = x;
@@ -290,7 +286,7 @@ void dglViewPort(unsigned int x, unsigned int y, unsigned int width, unsigned in
 }
 
 /***
- *	Set shader that is used in dglDrawElements
+ *	Задаєм шейдерну програму
  */
 void dglUseProgram(shader& someShader) {
 	internalShader = &someShader;

@@ -1,9 +1,8 @@
-#include "pipeline.h"
+﻿#include "pipeline.h"
 #include "vga.h"
 
 /***
- *  toScreenSpace
- *      Converts clip space coordinates to screen coordinates
+ *  Конвертує координати з обрізного простору в екранний простір
  */
 vec3 pipeline::toScreenSpace(vec4& vert) {
     vec3 ndc = vec3(vert.x / vert.w, vert.y / vert.w, vert.z / vert.w);
@@ -14,8 +13,7 @@ vec3 pipeline::toScreenSpace(vec4& vert) {
 }
 
 /***
- *  AssembleTriange
- *      Creates triangle struct with screen space coordinates
+ *  Створює структуру трикутників з вершин
 */
 void pipeline::AssembleTriangle(vec4* vertices) {
 	vec4& v0 = vertices[0];
@@ -27,8 +25,7 @@ void pipeline::AssembleTriangle(vec4* vertices) {
 }
 
 /***
- *  DrawTriangle
- *      Doesn't use rasterization and just draws lines
+ *  Малює трикутник
  */
 void pipeline::DrawTriangle(const triangle& trig) {
     DrawLine(trig.v0, trig.v1);
@@ -37,8 +34,7 @@ void pipeline::DrawTriangle(const triangle& trig) {
 }
 
 /***
- *  DrawLinw
- *      DDA line algorithm
+ *  Малює лінію за DDA алгоримом
  */
 void pipeline::DrawLine(vec3& v0, vec3& v1) {
     float dx = v1.x - v0.x;

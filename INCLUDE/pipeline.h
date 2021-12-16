@@ -1,7 +1,5 @@
-/*/// pipeline.h
-///	Handles basic graphics pipeline that assembles triangles and draws them on screen
-/// 
-/// Writen by Nikita Berezkov
+﻿/*/// pipeline.h
+///	Клас графічного конвеєру
 //*/
 
 #ifndef __PIPELINE_H
@@ -10,6 +8,9 @@
 #include "dglm.h"
 #include "vga.h"
 
+//**
+//	Структура трикутника
+//
 struct triangle {
 public:
 	vec3 v0;
@@ -25,7 +26,7 @@ public:
 
 class pipeline {
 public:
-	//Parameters that are set by dglViewPort()
+	//Параметри які задаються в dlgViewPort
 	unsigned int WIDTH;
 	unsigned int HEIGHT;
 	unsigned int CORNERX;

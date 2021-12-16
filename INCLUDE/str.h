@@ -1,7 +1,5 @@
-/*/// str.h
-///	Provides simple string class
-///
-/// Written by Nikita Berezkov
+﻿/*/// str.h
+///	Клас для роботи зі строками
 //*/
 
 #ifndef __STR_H
@@ -11,8 +9,8 @@
 
 class String {
 public:
-   char* char_ptr;   // pointer to string contents
-   int length;       // length of string in characters
+   char* char_ptr;   // Вказівник на масив з символами
+   int length;       // Довжина строки
 
    String(char *text);           
    String(int size = 80);       
@@ -31,7 +29,7 @@ String::String(char* text)
 };
 
 /***
- *	Creates empty string
+ *	Створює пусту сроку з довжиної size
  */
 String::String(int size)
 {
@@ -40,6 +38,9 @@ String::String(int size)
 	*char_ptr = '\0';
 };
 
+/***
+ *	Копіює значення іншої строки
+ */
 String::String(String& Other_String)
 {
 	length = Other_String.length;       
@@ -47,6 +48,9 @@ String::String(String& Other_String)
 	strcpy(char_ptr, Other_String.char_ptr); 
 };
 
+/***
+ *	З'єднює строки
+ */
 String String::operator+ (String& Arg)
 {
 	String Temp(length + Arg.length);
@@ -55,6 +59,9 @@ String String::operator+ (String& Arg)
 	return Temp;
 }
 
+/***
+ *	Повертає довжину строки
+ */
 int String::Get_len(void)
 {
 	return (length);

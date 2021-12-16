@@ -4,7 +4,31 @@
 /                 /
 Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
 test.cpp:
-Warning test.cpp 110: Function should return a value in function main()
-Turbo Link  Version 5.0 Copyright (c) 1992 Borland International
+Error ..\INCLUDE\dosgl.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\dosgl.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\dosgl.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\str.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\str.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\str.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\shader.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\shader.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\shader.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\dglm.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\dglm.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\dglm.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\str.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\str.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\str.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\shader.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\shader.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\shader.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\dglm.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\dglm.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\dglm.h 1: Illegal character '¿' (0xbf)
+Error ..\INCLUDE\vga.h 1: Illegal character 'ï' (0xef)
+Error ..\INCLUDE\vga.h 1: Illegal character '»' (0xbb)
+Error ..\INCLUDE\vga.h 1: Illegal character '¿' (0xbf)
+Warning test.cpp 133: Function should return a value in function main()
+*** 24 errors in Compile ***
 
-	Available memory 3536620
+	Available memory 4016392

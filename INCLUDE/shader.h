@@ -1,10 +1,7 @@
-/*/// shader.h
-///	Contains abstract class that desribes default shader.
-/// Because there is no compiler for shader program, you have specify yourself all data that you need.
-///	Also specify what location every field has how it handles it.
-/// For example, investigate smplShdr.h
-///
-/// Written by Nikita Berezkov
+﻿/*/// shader.h
+///	Описує абстрактний клас для шейдерної програми
+/// Сучасні графічні конвеєри мають в собі спеціальні компілятори для компілювання шейдерних програм
+/// Щоб не писати свій компілятор, було ствроено цей клас в якому можна самому описувати вершинний шейдер
 //*/
 
 #ifndef __SHADER_H
@@ -19,34 +16,34 @@ protected:
 
 	void retrieveMatrix4(mat4* matrix, const float* value);
 public:
-	//You have to manually specify how many attributes are in this shader
+	//Потрібно власноруч описувати кількість атрибутів, 
+	//	так як в нас немає компілятора який це зробить самостійно
 	int attributes;
 
 	/***
-	 *	Vertex shader 
+	 *	Вершинний шейдер
 	 */
 	virtual vec4 vert() = 0;
 
 	/***
-	 *	Function has to get data pointer and offset where to start reading data
+	 *	Функція для задання значень в нашому шейдері
 	 */
 	virtual void setAttribute(unsigned int location, unsigned int offset, void* data) = 0;
 
 	/***
-	 *	Returns location of variables.
-	 *		You determine location and variable names yourself.
+	 *	Повертає номер знаходження атрибу
+	 *		Так як немає компілятора, його потрібно самому описувати
 	 */
 	virtual int getUniformLocation(String name) = 0;
 
 	/***
-	 *	Has to set data to specified location.
-	 *	You specify how data should be handled 
+	 *	Задає значення матриці в шейдері в номері знаходження
 	 */
 	virtual void setUniformMatrix4fv(int location, const float* value) = 0;
 };
 
 /***
- *	 Retrieves data from "value" and sets it to "vector"
+ *	 Переведення структури трьохвимірного вектора в звичайний масив
  */
 void shader::retrieveVec3(vec3* vector, const float* value) {
 	float* ptr = &(*vector).x;
@@ -59,7 +56,7 @@ void shader::retrieveVec3(vec3* vector, const float* value) {
 }
 
 /***
- *	 Retrieves data from "value" and sets it to "matrix"
+ *	 Переведення структури матриці 4-на-4 в звичайний масив
  */
 void shader::retrieveMatrix4(mat4* matrix, const float* value) {
 	float* ptr = &(*matrix)[0].x;

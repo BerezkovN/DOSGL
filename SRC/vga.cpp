@@ -1,16 +1,15 @@
-#include <dos.h>
+﻿#include <dos.h>
 #include <mem.h>
 
 #include "vga.h"
 
-byte* VGA = (byte*)0xA0000000L;        /* this points to video memory. */
+byte* VGA = (byte*)0xA0000000L;        /* Цей вказівник посилається на частину пам'яті яку зчитує відеокарта */
 
 word visual_page;
 word active_page;
 
-/***
- *  set_mode                                                              
- *     Sets the video mode.                                               
+/***                                          
+ *     Ініціалізує вказаний режим                                             
  */
 void set_mode(byte mode)
 {
@@ -22,34 +21,31 @@ void set_mode(byte mode)
 }
 
 /***
- *  set_unchained_mode                                                    
- *    resets VGA mode 0x13 to unchained mode to access all 256K of memory 
+ *  Ініціалізує mode 13h та модифікує його для отримання mode X
  */
 void set_unchained_mode(void)
 {
     set_mode(VGA_256_COLOR_MODE);
     word i;
-    dword* ptr = (dword*)VGA;            /* used for faster screen clearing */
+    dword* ptr = (dword*)VGA;            
 
-    outp(SC_INDEX, MEMORY_MODE);         /* turn off chain-4 mode */
+    outp(SC_INDEX, MEMORY_MODE);         
     outp(SC_DATA, 0x06);
 
-    outpw(SC_INDEX, ALL_PLANES);         /* set map mask to all 4 planes */
+    outpw(SC_INDEX, ALL_PLANES);         
 
-    for (i = 0; i < 0x4000; i++)         /* clear all 256K of memory */
+    for (i = 0; i < 0x4000; i++)         
         *ptr++ = 0;
 
-    outp(CRTC_INDEX, UNDERLINE_LOCATION);/* turn off long mode */
+    outp(CRTC_INDEX, UNDERLINE_LOCATION);
     outp(CRTC_DATA, 0x00);
 
-    outp(CRTC_INDEX, MODE_CONTROL);      /* turn on byte mode */
+    outp(CRTC_INDEX, MODE_CONTROL);     
     outp(CRTC_DATA, 0xe3);
 }
 
 /***
- *  page_flip                                                             
- *    switches the pages at the appropriate time and waits for the        
- *    vertical retrace.                                                   
+ *  Змінює вказівник відеокарти на іншу частину пам'яті, тим саме створючи ефект двійного буфера                                               
  */
 void page_flip(word* page1, word* page2)
 {
@@ -74,8 +70,7 @@ void page_flip(word* page1, word* page2)
 }
 
 /***
- *  setpix                                                          
- *    Plots a pixel in unchained mode                                     
+ *  Задає значення пікселя для режиму mode X                                 
  */
 void setpix(word page, int x, int y, byte c)
 {
