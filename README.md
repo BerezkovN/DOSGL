@@ -1,5 +1,5 @@
 >⠀  
-> **WARNING**: Most of the code is written in a bad manner because of the compiler limitations
+> **WARNING**: Due to usage of old C++ compiler, the code constains a lot of unsafe code
 >⠀⠀  
 ⠀
 
